@@ -8,11 +8,13 @@ class PostsController < ApplicationController
   end
 
   def new
-  @post = Post.new
+    @post = Post.new
+    authorize! :create, Post, message: "You must be a member to ceate a new post."
   end
   
   def create
    @post = current_user.posts.build(params[:post])
+   authorize! :create, @post, message: "You need to be signed up to do that."
    if @post.save
       flash[:notice] = "Post was saved."
      redirect_to @post
@@ -24,11 +26,13 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    authorize! :edit, @post, message: "You need to own the post to edit it."
   end
 
   def update
     @post = Post.find(params[:id])
     if @post.update_attributes(params[:post])
+      authorize! :update, @posts, message: "You need to own the post to edit it."
       flash[:notice] = "Post was updated."
       redirect_to @post
     else
