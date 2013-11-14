@@ -12,6 +12,7 @@
  *= require_tree .
  */
 
+@import "bootstrap-custom";
 @import "bootstrap";
 
 .user-info {
@@ -25,6 +26,10 @@
 .vote-arrows {
   width: 40px;
   text-align: center;
+}
+
+.voted {
+  opacity: 0.5;
 }
 
 .favorite {
