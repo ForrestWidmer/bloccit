@@ -10,14 +10,15 @@ class Ability
       can :manage, Post, :user_id => user.id
       can :manage, Comment, :user_id => user.id
       can :create, Vote
-      can :manage, Favorite, user_id: user.id
-      can :read, Topic
+      can :manage, Favorite, :user_id => user.id
+      can :manage, Topic, :user_id => user.id
     end
 
     # Moderators can delete any post
     if user.role? :moderator
       can :destroy, Post
       can :destroy, Comment
+      can :destroy, Topic
     end
 
     # Admins can do anything

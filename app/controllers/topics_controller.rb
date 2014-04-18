@@ -5,7 +5,7 @@ class TopicsController < ApplicationController
 
   def new
     @topic = Topic.new
-    authorize! :create, @topic, message: "You need to be an admin to do that."
+    authorize! :manage, Topic, message: "You need to be a registered user to do that."
   end
 
   def show
@@ -20,8 +20,8 @@ class TopicsController < ApplicationController
   end
 
     def create
-    @topic = Topic.new(params[:topic])
-    authorize! :create, @topic, message: "You need to be an admin to do that."
+    @topic = current_user.topics.build(params[:topic])
+    authorize! :manage, @topic, message: "You need to be a registered user to do that."
     if @topic.save
       flash[:notice] = "Topic was saved successfully."
       redirect_to @topic
