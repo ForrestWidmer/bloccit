@@ -7,7 +7,11 @@
     <small>
       <%= image_tag(@post.user.avatar.tiny.url) if @post.user.avatar? %>
       submitted <%= time_ago_in_words(@post.created_at) %> ago by 
-      <%= @post.user.name %>
+      <% if @post.user.name.length >= 1 %>
+        <%= link_to @post.user.name, @post.user %><br/>
+      <% else %>
+        <%= link_to @post.user.email, @post.user %><br />
+      <% end %>
     </small>
     <p><%= markdown @post.body %></p>
     <p><%= image_tag(@post.image_url) if @post.image? %></p>

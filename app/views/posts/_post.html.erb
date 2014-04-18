@@ -10,7 +10,11 @@
     <small>
       <%= image_tag(post.user.avatar.tiny.url) if post.user.avatar? %>
       submitted <%= time_ago_in_words(post.created_at) %> ago by
-      <%= link_to post.user.name, post.user %><br/>
+      <% if post.user.name.length >= 1 %>
+        <%= link_to post.user.name, post.user %><br/>
+      <% else %>
+        <%= link_to post.user.email, post.user %><br />
+      <% end %>
       <%= post.comments.count %> Comments
     </small>
   </div>
