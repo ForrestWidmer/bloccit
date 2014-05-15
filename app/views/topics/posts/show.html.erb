@@ -5,6 +5,7 @@
     <%= render partial: 'votes/voter', locals: { topic: @topic, post: @post } %>
     <h1><%= @post.title %></h1>
     <small>
+    <% if @post.user %>
       <%= image_tag(@post.user.avatar.tiny.url) if @post.user.avatar? %>
       submitted <%= time_ago_in_words(@post.created_at) %> ago by 
       <% if @post.user.name.length >= 1 %>
@@ -12,6 +13,7 @@
       <% else %>
         <%= link_to @post.user.email, @post.user %><br />
       <% end %>
+    <% end %>
     </small>
     <p><%= markdown @post.body %></p>
     <p><%= image_tag(@post.image_url) if @post.image? %></p>
